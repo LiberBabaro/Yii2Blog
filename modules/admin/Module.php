@@ -15,6 +15,11 @@ class Module extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
+    public $layout = '/admin';
+
+    /**
+     * {@inheritdoc}
+     */
     public function init()
     {
         parent::init();
