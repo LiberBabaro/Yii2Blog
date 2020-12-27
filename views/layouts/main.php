@@ -10,6 +10,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 PublicAsset::register($this);
 //AppAsset::register($this);
@@ -27,55 +28,6 @@ PublicAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<?php /*
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>*/?>
 
 <nav class="navbar main-menu navbar-default">
     <div class="container">
@@ -102,8 +54,21 @@ PublicAsset::register($this);
                 </ul>
                 <div class="i_con">
                     <ul class="nav navbar-nav text-uppercase">
-                        <li><a href="/site/login">Login</a></li>
-                        <li><a href="/site/signup">Register</a></li>
+                        <?php if (Yii::$app->user->isGuest): ?>
+                            <li><a href="<?= Url::toRoute(['auth/login']); ?>">Login</a></li>
+                            <li><a href="<?= Url::toRoute(['auth/signup']); ?>">Register</a></li>
+                        <?php else: ?>
+                            <li>
+                                <?php
+                                echo Html::beginForm(['/auth/logout'], 'post')
+                                . Html::submitButton(
+                                'Logout (' . Yii::$app->user->identity->name . ')',
+                                ['class' => 'btn btn-link logout']
+                                )
+                                . Html::endForm();
+                                ?>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
 
