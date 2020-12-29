@@ -3,7 +3,13 @@ use yii\helpers\Url;
 ?>
 <div class="col-md-4" data-sticky_column>
     <div class="primary-sidebar">
-
+        <aside class="widget border pos-padding">
+            <h3 class="widget-title text-uppercase text-center">Sort by</h3>
+            <ul>
+                <li><?= $sort->link('user_id') ?></li>
+                <li><?= $sort->link('date');?></li>
+            </ul>
+        </aside>
         <aside class="widget">
             <h3 class="widget-title text-uppercase text-center">Popular Posts</h3>
 

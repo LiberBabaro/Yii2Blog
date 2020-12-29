@@ -9,6 +9,7 @@ class PublicAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/site.css',
         'public/css/bootstrap.min.css',
         'public/css/font-awesome.min.css',
         'public/css/animate.min.css',

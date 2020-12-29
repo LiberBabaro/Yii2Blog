@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\Pagination;
 use yii\web\IdentityInterface;
 
 /**
@@ -111,5 +112,21 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getImage()
     {
         return $this->photo ? '/uploads/' . $this->photo : '/no-image.png';
+    }
+    public static function getArticlesByAuthor($id)
+    {
+        //$query = Article::find()->where(['status' => 1]);
+        $query = Article::find()->where(['user_id' => $id]);
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 4]);
+
+        $articles = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        $data['articles'] = $articles;
+        $data['pagination'] = $pagination;
+
+        return $data;
     }
 }

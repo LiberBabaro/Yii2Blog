@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\data\Pagination;
+use yii\data\Sort;
 
 /**
  * This is the model class for table "tbl_article".
@@ -132,7 +133,7 @@ class Article extends \yii\db\ActiveRecord
         return Yii::$app->formatter->asDate($this->date);
     }
 
-    public static function getAll($pageSize = 5)
+    public static function getAll($pageSize = 5, $sort)
     {
         //$query = Article::find()->where(['status' => 1]);
         $query = Article::find();
@@ -141,6 +142,7 @@ class Article extends \yii\db\ActiveRecord
 
         $articles = $query->offset($pagination->offset)
             ->limit($pagination->limit)
+            ->orderBy($sort->orders)
             ->all();
 
         $data['articles'] = $articles;

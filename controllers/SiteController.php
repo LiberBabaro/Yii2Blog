@@ -4,10 +4,12 @@ namespace app\controllers;
 
 use app\models\Article;
 use app\models\Category;
+use app\models\User;
 use app\models\CommentForm;
 use app\models\ImageUpload;
 use Yii;
 use yii\data\Pagination;
+use yii\data\Sort;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -69,7 +71,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $data = Article::getAll(5);
+        $sort = new Sort([
+        'attributes' => [
+            'date',
+            'user_id' => [
+                'default' => SORT_DESC,
+                'label' => 'User',
+            ],
+        ],
+        ]);
+        $data = Article::getAll(5, $sort);
 
         $popular = Article::getPopular();
 
@@ -83,6 +94,7 @@ class SiteController extends Controller
             'popular' => $popular,
             'recent' => $recent,
             'categories' => $categories,
+            'sort' => $sort
         ]);
     }
 

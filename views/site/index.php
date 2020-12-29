@@ -3,7 +3,6 @@ use yii\widgets\LinkPager;
 use yii\helpers\Url;
 ?>
 <div class="col-md-8">
-
     <?php foreach($articles as $article):?>
     <article class="post">
         <div class="post-thumb">
@@ -30,7 +29,7 @@ use yii\helpers\Url;
                 </div>
             </div>
             <div class="social-share">
-                <span class="social-share-title pull-left text-capitalize">By <a href="#"><?= $article->author->name ?></a> On <?= $article->getDate(); ?></span>
+                <span class="social-share-title pull-left text-capitalize">By <a href="<?= Url::toRoute(['filter/index', 'author' => $article->author->id]); ?>"><?= $article->author->name ?></a> On <a href="<?= Url::toRoute(['filter/index', 'date' => $article->date]); ?>"><?= $article->getDate(); ?></a></span>
                 <ul class="text-center pull-right">
                     <li><a class="s-facebook" href="<?= Url::toRoute(['site/single', 'id' => $article->id]); ?>"><i class="fa fa-eye"></i></a></li><?= (int) $article->viewed; ?>
                 </ul>
@@ -49,4 +48,5 @@ use yii\helpers\Url;
     'popular' => $popular,
     'recent' => $recent,
     'categories' => $categories,
+    'sort' => $sort
 ]); ?>

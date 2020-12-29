@@ -73,4 +73,21 @@ class Category extends \yii\db\ActiveRecord
 
         return $data;
     }
+
+    public static function getArticlesByDate($date)
+    {
+        //$query = Article::find()->where(['status' => 1]);
+        $query = Article::find()->where(['date' => $date]);
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 4]);
+
+        $articles = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        $data['articles'] = $articles;
+        $data['pagination'] = $pagination;
+
+        return $data;
+    }
 }
