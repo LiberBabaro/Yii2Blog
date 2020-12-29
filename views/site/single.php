@@ -9,7 +9,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 ?>
 <div class="col-md-8">
-    <?php if (!Yii::$app->user->isGuest && Yii::$app->user->id == $article->author->id): ?>
+    <?php if (!Yii::$app->user->isGuest && Yii::$app->user->id == $article->author->id || Yii::$app->user->identity->isAdmin): ?>
         <?= Html::a('Update', ['article/article-edit', 'id' => $article->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Set image', ['article/set-image', 'id' => $article->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Set category', ['article/set-category', 'id' => $article->id], ['class' => 'btn btn-default']) ?>
