@@ -58,6 +58,8 @@ PublicAsset::register($this);
                             <li><a href="<?= Url::toRoute(['auth/login']); ?>">Login</a></li>
                             <li><a href="<?= Url::toRoute(['auth/signup']); ?>">Register</a></li>
                         <?php else: ?>
+                            <li><a class="btn-outline-success" href="<?= Url::toRoute(['article/article-create']); ?>">New Article</a></li>
+
                             <li>
                                 <?php
                                 echo Html::beginForm(['/auth/logout'], 'post')

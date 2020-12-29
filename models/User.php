@@ -78,6 +78,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->id;
     }
 
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
     public function getAuthKey()
     {
         // TODO: Implement getAuthKey() method.
