@@ -58,7 +58,11 @@ PublicAsset::register($this);
                             <li><a href="<?= Url::toRoute(['auth/login']); ?>">Login</a></li>
                             <li><a href="<?= Url::toRoute(['auth/signup']); ?>">Register</a></li>
                         <?php else: ?>
-                            <li><a class="btn-outline-success" href="<?= Url::toRoute(['article/article-create']); ?>">New Article</a></li>
+                            <?php if (Yii::$app->user->identity->isAdmin): ?>
+                                <li><a href="<?= Url::toRoute(['admin/default/index']); ?>">Admin Panel</a></li>
+
+                            <?php endif; ?>
+                            <li><a href="<?= Url::toRoute(['article/article-create']); ?>">New Article</a></li>
 
                             <li>
                                 <?php
